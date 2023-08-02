@@ -8,7 +8,7 @@ export default createBrowserRouter([
         element: <AnimeList />,
     },
     {
-        path: "/anime-detail",
+        path: "/anime-detail/:id",
         element: <AnimeDetail />,
     },
 ]);

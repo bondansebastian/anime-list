@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import router from './router';
+import AnimeProvider from './components/AnimeProvider';
 
 const client = new ApolloClient({
   uri: 'https://graphql.anilist.co',
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+      <AnimeProvider>
+        <RouterProvider router={router} />
+      </AnimeProvider>
     </ApolloProvider>
   </React.StrictMode>
 );

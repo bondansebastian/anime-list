@@ -4,9 +4,10 @@ import React from 'react';
 type CoverProps = {
     src: string;
     alt?: string;
+    style?: string;
 }
 
-export default function Cover({ src, alt }: CoverProps)
+export default function Cover({ src, alt, style }: CoverProps)
 {
     return (
         <div className={css`
@@ -16,6 +17,7 @@ export default function Cover({ src, alt }: CoverProps)
             width: 100%;
             overflow: hidden;
             box-shadow: 0 14px 30px rgba(var(--color-shadow-blue),.15),0 4px 4px rgba(var(--color-shadow-blue),.05);
+            ${style}
             label: cover;
         `}>
             <img className={css`
