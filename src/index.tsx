@@ -3,14 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import router from './router';
+
+const client = new ApolloClient({
+  uri: 'https://graphql.anilist.co',
+  cache: new InMemoryCache(),
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
   </React.StrictMode>
 );
 

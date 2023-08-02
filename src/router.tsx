@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./modules/Home/Home";
 import AnimeDetail from "./modules/AnimeDetail/AnimeDetail";
+import AnimeList from "./modules/AnimeList/AnimeList";
 
 export default createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
+        element: <AnimeList />,
     },
     {
         path: "/anime-detail",
