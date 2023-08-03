@@ -6,6 +6,7 @@ type CollectionContextType = {
     collections: Array<Collection>;
     setCollections(collections: Array<Collection>): void;
     addCollection(name: string, animes?: Array<Media>): void;
+    editCollection(name: string, into: string): void;
     removeCollection(name: string): void;
     validateCollection(name: string): boolean;
     addAnime(collection: Collection, anime: Media): void;

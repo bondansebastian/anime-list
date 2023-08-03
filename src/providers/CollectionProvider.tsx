@@ -15,6 +15,13 @@ export default function CollectionProvider({ children }: any)
         ])
     }
 
+    const editCollection = (name: string, into: string) => {
+        let mutation = [ ...collections ];
+        const index = mutation.findIndex(item => item.name === name);
+        mutation[index].name = into;
+        setCollections(mutation);
+    }
+
     const removeCollection = (name: string) => {
         setCollections(collections.filter(item => item.name !== name))
     }
@@ -61,6 +68,7 @@ export default function CollectionProvider({ children }: any)
             collections,
             setCollections,
             addCollection,
+            editCollection,
             removeCollection,
             validateCollection,
             addAnime,

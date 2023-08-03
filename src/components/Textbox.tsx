@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import React, { RefObject, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 
 type KeyUpHandler = {
     (value: string, setValue: Function): void;
@@ -11,6 +11,7 @@ type TextboxProps = {
     placeholder?: string;
     onKeyUp?: KeyUpHandler|null;
     style?: string;
+    initialValue?: string;
 }
 
 export default React.forwardRef(function Textbox({ 
@@ -18,14 +19,20 @@ export default React.forwardRef(function Textbox({
     error, 
     placeholder, 
     onKeyUp = null, 
-    style 
+    style,
+    initialValue = '',
 }: TextboxProps, ref) {
-    const [ value, setValue ] = useState<string>('');
+    const [ value, setValue ] = useState<string>(initialValue);
 
     const handleKeyUp = (event: React.KeyboardEvent) => {
         if (event.key !== 'Enter' || onKeyUp === null) return;
         onKeyUp(value, setValue);
     }
+
+    useEffect(() => {
+        if (!initialValue) return;
+        setValue(initialValue);
+    }, [initialValue])
 
     return (
         <div className={css`

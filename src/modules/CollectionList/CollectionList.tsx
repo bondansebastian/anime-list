@@ -18,10 +18,14 @@ import { NavLink } from 'react-router-dom';
 import ListItemAction from '../../components/ListItemAction';
 import DeleteButton from '../../components/DeleteButton';
 import MutedText from '../../components/MutedText';
+import EditCollectionModal from '../../components/EditCollectionModal';
+import EditButton from '../../components/EditButton';
 
 export default function CollectionList() {
     const { collections, addCollection, validateCollection, removeCollection } = useContext(CollectionContext);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [adding, setAdding] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [selected, setSelected] = useState<Collection|undefined>(undefined);
     const [error, setError] = useState('');
     const textboxRef = useRef<HTMLInputElement>();
 
@@ -34,10 +38,15 @@ export default function CollectionList() {
         if (validateCollection(name)) {
             addCollection(name);
             setValue('');
-            setModalVisible(false);
+            setAdding(false);
         } else {
             setError('Collection already exists');
         }
+    }
+
+    const handleEdit = (collection: Collection) => {
+        setSelected(collection);
+        setEditing(true);
     }
 
     const handleDelete = (collection: Collection) => {
@@ -47,10 +56,10 @@ export default function CollectionList() {
     }
 
     useEffect(() => {
-        if (modalVisible) {
+        if (adding) {
             textboxRef.current?.focus();
         }
-    }, [modalVisible])
+    }, [adding])
 
     return (
         <Container>
@@ -59,12 +68,12 @@ export default function CollectionList() {
                     <PageTitle>Collections</PageTitle>
                     <ListContainer>
                         <List>
-                            <PrimaryButton onClick={() => setModalVisible(true)}>
+                            <PrimaryButton onClick={() => setAdding(true)}>
                                 <i className="fa-solid fa-plus" /> Add Collection
                             </PrimaryButton>
                             {
                                 collections.map(collection => (
-                                    <ListItem>
+                                    <ListItem key={collection.name}>
                                         <Cover src={getCover(collection)} style={`
                                             flex: .75;
                                             height: 75px;
@@ -83,6 +92,10 @@ export default function CollectionList() {
                                         </div>
 
                                         <ListItemAction style={{ flex: 1 }}>
+                                            <EditButton 
+                                                onClick={() => handleEdit(collection)} 
+                                                style={{ marginRight: '10px' }}
+                                            />
                                             <DeleteButton onClick={() => handleDelete(collection)} />
                                         </ListItemAction>
                                     </ListItem>
@@ -100,7 +113,7 @@ export default function CollectionList() {
             <FloatingNavLink to='/'>
                 <i className="fa-solid fa-tv" /> Animes
             </FloatingNavLink>
-            <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
+            <Modal visible={adding} onClose={() => setAdding(false)}>
                 <h4>Add New Collection</h4>
                 <Textbox
                     ref={textboxRef}
@@ -110,10 +123,15 @@ export default function CollectionList() {
                     error={error}
                     style={`margin-bottom: 10px;`}
                 />
-                <Button fullwidth={true} onClick={() => setModalVisible(false)}>
+                <Button fullwidth={true} onClick={() => setAdding(false)}>
                     Close
                 </Button>
             </Modal>
+            <EditCollectionModal 
+                visible={editing} 
+                collection={selected} 
+                onClose={() => setEditing(false)} 
+            />
         </Container>
     )
 }
