@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { NavLink, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
@@ -11,12 +11,17 @@ import Meta from '../../components/Meta';
 import AnimeContext from '../../contexts/AnimeContext';
 import Button from '../../components/Button';
 import CollectionModal from '../../components/CollectionModal';
+import CollectionContext from '../../contexts/CollectionContext';
 
 function AnimeDetail() {
     const { id } = useParams();
     const { getAnime } = useContext(AnimeContext);
+    const { collections, hasAnime } = useContext(CollectionContext);
     const [ modalVisible, setModalVisible ] = useState(false);
     const anime = id === undefined ? undefined : getAnime(parseInt(id));
+    const collectionCounts = anime !== undefined 
+        ? collections.filter(c => hasAnime(c, anime)).length 
+        : 0;
 
     if (!anime) {
         return <Navigate to='/' replace={true} />
@@ -38,7 +43,7 @@ function AnimeDetail() {
                         <Button style={`
                             width: 100%;
                         `} onClick={() => setModalVisible(true)}>
-                            Add to collection
+                            { collectionCounts <= 0 ? `Add to collection` : `Added to collection (${collectionCounts})` }
                         </Button>
                         <br /> <br />
                         <Meta data={[

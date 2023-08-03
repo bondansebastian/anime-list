@@ -50,9 +50,19 @@ export default function CollectionModal({
     const handlePersist = () => {
         let mutation = [ ...collections ];
         for (let i = 0; i < mutation.length; i++) {
+            // Remove anime from collection
             if (!checkedCollections.includes(mutation[i].name) 
-                || hasAnime(mutation[i], anime)) continue;
-            mutation[i].animes.push(anime);
+                && hasAnime(mutation[i], anime)) {
+                    mutation[i].animes = mutation[i].animes.filter(item => item.id !== anime.id);
+                    continue;
+                }
+
+            // Add anime into collection
+            if (checkedCollections.includes(mutation[i].name) 
+                && !hasAnime(mutation[i], anime)) {
+                mutation[i].animes.push(anime);
+                continue;
+            }
         }
         setCollections(mutation);
         onClose();
