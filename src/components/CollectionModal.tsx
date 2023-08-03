@@ -4,10 +4,11 @@ import { css } from '@emotion/css';
 import Button from './Button';
 import Textbox from './Textbox';
 import CollectionContext from '../contexts/CollectionContext';
-import CollectionRow from './CollectionRow';
 import Collection from '../types/Collection';
 import Modal from './Modal';
 import PrimaryButton from './PrimaryButton';
+import ListItem from './ListItem';
+import { NavLink } from 'react-router-dom';
 
 type CollectionModalProps = {
     anime: Media;
@@ -73,7 +74,7 @@ export default function CollectionModal({
     return (
         <Modal visible={visible} onClose={onClose}>
             <Textbox
-                placeholder='New Collection'
+                placeholder='Type new collection here'
                 onKeyUp={(value: string, setValue: Function) => onCreateCollection(value, setValue)}
                 style={`margin-bottom: 7.5px;`}
                 error={error}
@@ -81,13 +82,18 @@ export default function CollectionModal({
 
             {
                 collections.map(collection => (
-                    <CollectionRow key={collection.name} collection={collection}>
+                    <ListItem key={collection.name}>
                         <input
                             type="checkbox"
                             checked={isChecked(collection)}
                             onChange={() => handleChecked(collection)}
                             className={css`margin-right:10px;`} />
-                    </CollectionRow>
+                        <div style={{ flex: 2 }}>
+                            <NavLink to={`/collection-detail/${collection.name}`}>
+                                {collection.name}
+                            </NavLink>
+                        </div>
+                    </ListItem>
                 ))
             }
 

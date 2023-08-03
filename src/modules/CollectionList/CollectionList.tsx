@@ -3,7 +3,6 @@ import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
 import CollectionContext from '../../contexts/CollectionContext';
-import CollectionRow from '../../components/CollectionRow';
 import FloatingNavLink from '../../components/FloatingNavLink';
 import Cover from '../../components/Cover';
 import Collection from '../../types/Collection';
@@ -14,9 +13,14 @@ import Textbox from '../../components/Textbox';
 import Button from '../../components/Button';
 import List from '../../components/List';
 import ListContainer from '../../components/ListContainer';
+import ListItem from '../../components/ListItem';
+import { NavLink } from 'react-router-dom';
+import ListItemAction from '../../components/ListItemAction';
+import DeleteButton from '../../components/DeleteButton';
+import MutedText from '../../components/MutedText';
 
 export default function CollectionList() {
-    const { collections, addCollection, validateCollection } = useContext(CollectionContext);
+    const { collections, addCollection, validateCollection, removeCollection } = useContext(CollectionContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [error, setError] = useState('');
 
@@ -35,6 +39,12 @@ export default function CollectionList() {
         }
     }
 
+    const handleDelete = (collection: Collection) => {
+        if (window.confirm(`Delete ${collection.name}?`)) {
+            removeCollection(collection.name);
+        }
+    }
+
     return (
         <Container>
             <Row>
@@ -47,13 +57,28 @@ export default function CollectionList() {
                             </PrimaryButton>
                             {
                                 collections.map(collection => (
-                                    <CollectionRow key={collection.name} collection={collection}>
+                                    <ListItem>
                                         <Cover src={getCover(collection)} style={`
                                             flex: .75;
                                             height: 75px;
                                             margin-right: 10px;
                                         `} />
-                                    </CollectionRow>
+
+                                        <div style={{ flex: 2 }}>
+                                            <NavLink to={`/collection-detail/${collection.name}`}>
+                                                {collection.name}
+                                                <div>
+                                                    <MutedText style={{ fontSize: '12px' }}>
+                                                        {collection.animes.length} item(s)
+                                                    </MutedText>
+                                                </div>
+                                            </NavLink>
+                                        </div>
+
+                                        <ListItemAction style={{ flex: 1 }}>
+                                            <DeleteButton onClick={() => handleDelete(collection)} />
+                                        </ListItemAction>
+                                    </ListItem>
                                 ))
                             }
                             {
