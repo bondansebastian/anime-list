@@ -35,7 +35,8 @@ export default function CollectionProvider({ children }: any)
         setCollections(mutated);
     }
 
-    const hasAnime = (collection: Collection, anime: Media) => {
+    const hasAnime = (collection: Collection, anime: Media|undefined) => {
+        if (anime === undefined) return false;
         return collection.animes.find(item => item.id === anime.id) !== undefined;
     }
 

@@ -23,7 +23,7 @@ export default function Loading({ visible = true, label = 'Loading' }: LoadingPr
             z-index: 2;
             label: loading;
         `}>
-            { label }
+            <i className="fa-solid fa-circle-notch fa-spin" /> { label }
         </div>
     )
 }

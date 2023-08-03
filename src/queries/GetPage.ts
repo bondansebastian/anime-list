@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { mediaQueryFragment } from './GetMedia';
 
 const GET_PAGE = gql`
   query GetPage ($page: Int) {
@@ -9,24 +10,7 @@ const GET_PAGE = gql`
             hasNextPage
         }
         media (type: ANIME) {
-            id
-            title {
-                english
-                userPreferred
-            }
-            bannerImage
-            coverImage {
-                medium
-                large
-            }
-            genres
-            episodes
-            description
-            averageScore
-            meanScore
-            popularity
-            trending
-            isAdult
+            ${mediaQueryFragment}
         }
     }
   }

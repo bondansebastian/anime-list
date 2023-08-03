@@ -10,7 +10,7 @@ type CollectionContextType = {
     validateCollection(name: string): boolean;
     addAnime(collection: Collection, anime: Media): void;
     removeAnime(collection: Collection, anime: Media): void;
-    hasAnime(collection: Collection, anime: Media): boolean;
+    hasAnime(collection: Collection, anime: Media|undefined): boolean;
 }
 
 const CollectionContext = createContext<CollectionContextType>({} as CollectionContextType);

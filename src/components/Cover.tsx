@@ -2,13 +2,14 @@ import { css } from '@emotion/css';
 import React from 'react';
 
 type CoverProps = {
-    src: string;
-    alt?: string;
+    src?: string|undefined;
+    alt?: string|undefined;
     style?: string;
 }
 
 export default function Cover({ src, alt, style }: CoverProps)
 {
+    if (src === undefined) src = '/collection-placeholder.png';
     return (
         <div className={css`
             --color-shadow-blue: 103,132,187;

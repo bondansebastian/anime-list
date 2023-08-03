@@ -3,8 +3,8 @@ import React from 'react';
 import { mdMin } from '../breakpoints';
 
 type BannerProps = {
-    src: string;
-    alt?: string;
+    src?: string|undefined;
+    alt?: string|undefined;
 }
 
 export default function Banner({ src, alt }: BannerProps)
