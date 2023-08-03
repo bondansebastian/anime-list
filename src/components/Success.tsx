@@ -1,29 +1,32 @@
 import { css } from '@emotion/css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-type LoadingProps = {
-    visible: boolean;
-    label?: string;
+type SuccessProps = {
+    autoCloseDuration?: number;
+    children?: any;
+    visible?: boolean;
 }
 
-export default function Loading({ visible = true, label = 'Loading' }: LoadingProps) 
-{
+export default function Success({ 
+    children, 
+    visible = false 
+}: SuccessProps) {
     return (
         <div className={css`
             background: rgba(0,0,0, .7);
             border-radius: 8px;
-            bottom: ${visible ? 30 : -50}px;
+            top: ${visible ? 30 : -50}px;
             color: white;
             left: 50%;
             padding: 5px 15px;
             position: fixed;
             text-align: center;
             transform: translateX(-50%);
-            transition: bottom .2s ease;
+            transition: all .2s ease;
             z-index: 2;
             label: loading;
         `}>
-            <i className="fa-solid fa-circle-notch fa-spin" /> { label }
+            {children}
         </div>
     )
 }

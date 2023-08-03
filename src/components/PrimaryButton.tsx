@@ -5,12 +5,14 @@ type PrimaryButtonProps = {
     children?: any;
     fullwidth?: boolean;
     onClick?: Function;
+    style?: string;
 }
 
 export default function PrimaryButton({ 
     children, 
     fullwidth = false,
-    onClick = () => {} 
+    onClick = () => {},
+    style
 }: PrimaryButtonProps) {
     return (
         <Button style={`
@@ -19,6 +21,7 @@ export default function PrimaryButton({
             margin-bottom:5px;
             background-color: black;
             color: white !important;
+            ${style}
             &:hover {
                 background-color: hsl(14,80%,30%);
             }

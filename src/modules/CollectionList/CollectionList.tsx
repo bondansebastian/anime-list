@@ -20,6 +20,7 @@ import DeleteButton from '../../components/DeleteButton';
 import MutedText from '../../components/MutedText';
 import EditCollectionModal from '../../components/EditCollectionModal';
 import EditButton from '../../components/EditButton';
+import { mdMin } from '../../breakpoints';
 
 export default function CollectionList() {
     const { collections, addCollection, validateCollection, removeCollection } = useContext(CollectionContext);
@@ -68,7 +69,17 @@ export default function CollectionList() {
                     <PageTitle>Collections</PageTitle>
                     <ListContainer>
                         <List>
-                            <PrimaryButton onClick={() => setAdding(true)}>
+                            <PrimaryButton onClick={() => setAdding(true)} style={`
+                                position: relative;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 100%;
+                                ${mdMin} {
+                                    width: auto;
+                                    left: 0;
+                                    transform: none;
+                                }
+                            `}>
                                 <i className="fa-solid fa-plus" /> Add Collection
                             </PrimaryButton>
                             {

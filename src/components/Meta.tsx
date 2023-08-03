@@ -21,7 +21,7 @@ export default function Meta({ data, sm = 12, md = sm, lg = md, xl = lg }: MetaP
         <div className={css`
             background-color: white;
             padding: 0 15px;
-            border-radius: 4px;
+            border-radius: 8px;
         `}>
             <Row>
                 {data.map(item => (

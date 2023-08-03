@@ -5,7 +5,7 @@ import { lgMin, mdMin, smMin, xlMin } from '../breakpoints';
 export default React.forwardRef(function Container({ children, ...props }: any, ref) {
     return (
         <div className={css`
-            width: 100%;
+            width: calc(100% - 30px);
             padding-right: 15px;
             padding-left: 15px;
             margin-right: auto;

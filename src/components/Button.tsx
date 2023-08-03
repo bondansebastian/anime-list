@@ -21,12 +21,11 @@ export default function Button({
     return (
         <button className={css`
             background-color: transparent;
-            border-radius: 4px;
+            border-radius: 8px;
             border: 1px solid black;
             color: black;
             cursor: pointer;
             display: inline-block;
-            padding: 5px 10px;
             transition: all .2s ease;
             width:${fullwidth ? '100%' : 'auto'}; 
             &:hover {

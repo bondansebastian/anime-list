@@ -67,7 +67,6 @@ export default function BulkCollectionModal({
         setCheckedCollections([]);
         onSuccess();
         onClose();
-        alert(`${animes.length} anime(s) added to ${checkedCollections.length} collection(s)!`);
     }
 
     return (

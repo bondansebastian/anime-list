@@ -36,7 +36,7 @@ export default function Modal({
 
             <div className={css`
                 background-color: white;
-                border-radius: 4px;
+                border-radius: 8px;
                 max-height: 70vh;
                 overflow-y: auto;
                 padding: 15px;

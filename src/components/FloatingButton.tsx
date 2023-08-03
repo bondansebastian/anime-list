@@ -12,13 +12,13 @@ export default function FloatingButton({ children, style, onClick = () => {} }: 
     return (
         <button className={css`
             background-color: black;
-            border-radius: 4px;
+            border-radius: 8px;
             border: 1px solid black;
             bottom: 15px;
+            box-shadow: 0 0 29px rgba(49,54,68,.25);
             color: white !important;
             cursor: pointer;
             display: inline-block;
-            padding: 5px 10px;
             position: fixed;
             right: 15px;
             transition: all .2s ease;

@@ -16,6 +16,7 @@ import Media from '../../types/Media';
 import { css } from '@emotion/css';
 import FloatingButton from '../../components/FloatingButton';
 import BulkCollectionModal from '../../components/BulkCollectionModal';
+import Success from '../../components/Success';
 
 function AnimeList() {
     const { animes, setAnimes } = useContext(AnimeContext);
@@ -23,6 +24,7 @@ function AnimeList() {
     const [page, setPage] = useState(1);
     const [firstLoad, setFirstLoad] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
+    const [successVisible, setSuccessVisible] = useState(false);
     const [pageInfo, setPageInfo] = useState<PageInfo>({
         perPage: 10,
         currentPage: page,
@@ -75,6 +77,7 @@ function AnimeList() {
     return (
         <Container ref={ref}>
             <PageTitle>Animes</PageTitle>
+            <Success visible={successVisible}>Anime added to collection!</Success>
             <Loading visible={loading} />
             {error && `Error! ${error.message}`}
             <Row>
@@ -102,7 +105,11 @@ function AnimeList() {
             </FloatingNavLink>
             <BulkCollectionModal 
                 visible={modalVisible} 
-                onSuccess={() => setSelecteds([])}
+                onSuccess={() => {
+                    setSelecteds([])
+                    setSuccessVisible(true);
+                    setTimeout(() => setSuccessVisible(false), 2000);
+                }}
                 onClose={() => setModalVisible(false)} 
                 animes={animes.filter(anime => selecteds.includes(anime.id))}
             />
