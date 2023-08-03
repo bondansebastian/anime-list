@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Media } from "./queries";
+import Media from "./types/Media";
 
 type AnimeContextType = {
     animes: Array<Media>,

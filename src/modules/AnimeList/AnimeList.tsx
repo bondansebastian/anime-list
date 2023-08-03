@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_PAGE, PageInfo, PageQueryResult } from '../../queries';
+import { GET_PAGE } from '../../queries';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
@@ -9,6 +9,8 @@ import { NavLink } from 'react-router-dom';
 import { css } from '@emotion/css';
 import Loading from '../../components/Loading';
 import { AnimeContext } from '../../context';
+import PageInfo from '../../types/PageInfo';
+import PageQueryResult from '../../types/PageQueryResult';
 
 function AnimeList() {
     const { animes, setAnimes } = useContext(AnimeContext);
