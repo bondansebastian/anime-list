@@ -10,8 +10,7 @@ import Collection from '../../types/Collection';
 import PageTitle from '../../components/PageTitle';
 import { css } from '@emotion/css';
 
-export default function CollectionList()
-{
+export default function CollectionList() {
     const { collections } = useContext(CollectionContext);
 
     const getCover = (item: Collection) => {
@@ -37,6 +36,12 @@ export default function CollectionList()
                                     `} />
                                 </CollectionRow>
                             ))
+                        }
+
+                        {
+                            collections.length <= 0 && (
+                                <p>No collections yet</p>
+                            )
                         }
                     </div>
                 </Column>

@@ -7,6 +7,7 @@ import CollectionContext from '../contexts/CollectionContext';
 import CollectionRow from './CollectionRow';
 import Collection from '../types/Collection';
 import Modal from './Modal';
+import PrimaryButton from './PrimaryButton';
 
 type CollectionModalProps = {
     anime: Media;
@@ -96,21 +97,14 @@ export default function CollectionModal({
                 )
             }
 
-            <Button style={`
-                width:100%; 
-                margin-top:5px;
-                margin-bottom:5px;
-                background-color: black;
-                color: white !important;
-                &:hover {
-                    background-color: hsl(14,80%,30%);
-                }
-            `} onClick={() => handlePersist()}>
+            <PrimaryButton onClick={handlePersist} fullwidth={true}>
                 Add
-            </Button>
+            </PrimaryButton>
+
             <Button style={`width:100%;`} onClick={() => onClose()}>
                 Close
             </Button>
+
         </Modal>
     )
 }

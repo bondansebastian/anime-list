@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import Collection from '../types/Collection';
 import { NavLink } from 'react-router-dom';
 import CollectionContext from '../contexts/CollectionContext';
+import DeleteButton from './DeleteButton';
 
 type CollectionRowType = {
     collection: Collection;
@@ -52,12 +53,7 @@ export default function CollectionRow({
                 text-align: right;
                 label: actions;
             `}>
-                <a href="javascript:;" title="Delete" onClick={(e) => {
-                    e.preventDefault();
-                    handleDelete(collection)
-                }}>
-                    <i className='fa-solid fa-trash' />
-                </a>
+                <DeleteButton onClick={() => handleDelete(collection)} />
             </div>
 
         </div>
