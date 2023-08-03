@@ -3,9 +3,16 @@ import Media from '../types/Media';
 import Collection from '../types/Collection';
 import CollectionContext from '../contexts/CollectionContext';
 
-export default function CollectionProvider({ children }: any)
-{
-    const [collections, setCollections] = useState<Collection[]>([]);
+type CollectionProviderProps = {
+    children?: any;
+    defaultCollections?: Array<Collection>;
+}
+
+export default function CollectionProvider({ 
+    children,
+    defaultCollections = []
+}: CollectionProviderProps) {
+    const [collections, setCollections] = useState<Collection[]>(defaultCollections);
     const [firstLoad, setFirstLoad] = useState(true);
 
     const addCollection = (name: string, animes: Array<Media> = []) => {

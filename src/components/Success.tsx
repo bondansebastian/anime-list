@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 type SuccessProps = {
     autoCloseDuration?: number;
