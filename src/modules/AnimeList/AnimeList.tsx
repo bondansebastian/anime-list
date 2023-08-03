@@ -7,10 +7,10 @@ import Cover from '../../components/Cover';
 import { NavLink } from 'react-router-dom';
 import { css } from '@emotion/css';
 import Loading from '../../components/Loading';
-import { AnimeContext } from '../../context';
 import PageInfo from '../../types/PageInfo';
 import PageQueryResult from '../../types/PageQueryResult';
 import GET_PAGE from '../../queries/GetPage';
+import AnimeContext from '../../contexts/AnimeContext';
 
 function AnimeList() {
     const { animes, setAnimes } = useContext(AnimeContext);

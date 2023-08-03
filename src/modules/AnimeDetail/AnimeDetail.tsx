@@ -3,12 +3,12 @@ import { NavLink, Navigate, useParams } from 'react-router-dom';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
-import { AnimeContext } from '../../context';
 import Cover from '../../components/Cover';
 import Banner from '../../components/Banner';
 import { css } from '@emotion/css';
 import { mdMin } from '../../breakpoints';
 import Meta from '../../components/Meta';
+import AnimeContext from '../../contexts/AnimeContext';
 
 function AnimeDetail() {
     const { id } = useParams();

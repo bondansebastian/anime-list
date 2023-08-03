@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import router from './router';
 import AnimeProvider from './providers/AnimeProvider';
+import CollectionProvider from './providers/CollectionProvider';
 
 const client = new ApolloClient({
   uri: 'https://graphql.anilist.co',
@@ -19,7 +20,9 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <AnimeProvider>
-        <RouterProvider router={router} />
+        <CollectionProvider>
+          <RouterProvider router={router} />
+        </CollectionProvider>
       </AnimeProvider>
     </ApolloProvider>
   </React.StrictMode>

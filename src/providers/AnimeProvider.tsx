@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AnimeContext } from '../context';
 import Media from '../types/Media';
+import AnimeContext from '../contexts/AnimeContext';
 
 export default function AnimeProvider({ children }: any)
 {

@@ -6,6 +6,7 @@ import { MockedProvider } from '@apollo/client/testing';
 import { pageMock } from '../../mocks';
 import AnimeProvider from '../../providers/AnimeProvider';
 import AnimeList from '../AnimeList/AnimeList';
+import CollectionProvider from '../../providers/CollectionProvider';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,9 @@ test('renders without error', async () => {
   render(
     <MockedProvider mocks={pageMock} addTypename={false}>
       <AnimeProvider>
-        <RouterProvider router={router} />
+        <CollectionProvider>
+          <RouterProvider router={router} />
+        </CollectionProvider>
       </AnimeProvider>
     </MockedProvider>
   );

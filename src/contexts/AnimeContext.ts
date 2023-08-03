@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import Media from "./types/Media";
+import Media from "../types/Media";
 
 type AnimeContextType = {
     animes: Array<Media>,
@@ -7,4 +7,6 @@ type AnimeContextType = {
     getAnime(id: number|undefined): Media|undefined,
 }
 
-export const AnimeContext = createContext<AnimeContextType>({} as AnimeContextType);
+const AnimeContext = createContext<AnimeContextType>({} as AnimeContextType);
+
+export default AnimeContext;
