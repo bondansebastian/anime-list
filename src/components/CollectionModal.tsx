@@ -6,6 +6,7 @@ import Textbox from './Textbox';
 import CollectionContext from '../contexts/CollectionContext';
 import CollectionRow from './CollectionRow';
 import Collection from '../types/Collection';
+import Modal from './Modal';
 
 type CollectionModalProps = {
     anime: Media;
@@ -13,14 +14,14 @@ type CollectionModalProps = {
     visible?: boolean;
 }
 
-export default function CollectionModal({ 
-    anime, 
-    visible = false, 
-    onClose = () => {} 
-} : CollectionModalProps) {
-    const [ error, setError ] = useState('');
+export default function CollectionModal({
+    anime,
+    visible = false,
+    onClose = () => { }
+}: CollectionModalProps) {
+    const [error, setError] = useState('');
     const { collections, setCollections, validateCollection, addCollection, hasAnime } = useContext(CollectionContext);
-    const [ checkedCollections, setCheckedCollections ] = useState<string[]>(
+    const [checkedCollections, setCheckedCollections] = useState<string[]>(
         collections.filter(c => hasAnime(c, anime)).map(c => c.name)
     );
 
@@ -33,7 +34,7 @@ export default function CollectionModal({
         setCheckedCollections([...checkedCollections, value]);
         setValue('');
         setError('');
-    }   
+    }
 
     const isChecked = (collection: Collection) => {
         return checkedCollections.includes(collection.name);
@@ -48,17 +49,17 @@ export default function CollectionModal({
     }
 
     const handlePersist = () => {
-        let mutation = [ ...collections ];
+        let mutation = [...collections];
         for (let i = 0; i < mutation.length; i++) {
             // Remove anime from collection
-            if (!checkedCollections.includes(mutation[i].name) 
+            if (!checkedCollections.includes(mutation[i].name)
                 && hasAnime(mutation[i], anime)) {
-                    mutation[i].animes = mutation[i].animes.filter(item => item.id !== anime.id);
-                    continue;
-                }
+                mutation[i].animes = mutation[i].animes.filter(item => item.id !== anime.id);
+                continue;
+            }
 
             // Add anime into collection
-            if (checkedCollections.includes(mutation[i].name) 
+            if (checkedCollections.includes(mutation[i].name)
                 && !hasAnime(mutation[i], anime)) {
                 mutation[i].animes.push(anime);
                 continue;
@@ -69,81 +70,47 @@ export default function CollectionModal({
     }
 
     return (
-        <div className={css`
-            background: rgba(0,0,0,0.5);
-            display: ${visible ? 'block': 'none'};
-            height: 100%;
-            left: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            overflow: hidden;
-            label: modal-container;
-        `} >
-            <div className={css`
-                background: rgba(0,0,0,0.5);
-                display: ${visible ? 'block': 'none'};
-                height: 100%;
-                left: 0;
-                position: fixed;
-                top: 0;
-                width: 100%;
-                label: backdrop;
-            `} onClick={() => onClose()} />
-            <div className={css`
-                background-color: white;
-                border-radius: 4px;
-                max-height: 70vh;
-                overflow-y: auto;
-                padding: 15px;
-                width: 250px;
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                transform: translate(-50%, -50%);
-                label: modal;
-            `}>
-                <Textbox 
-                    placeholder='New Collection' 
-                    onKeyUp={(value: string, setValue: Function) => onCreateCollection(value, setValue)} 
-                    style={`margin-bottom: 7.5px;`}
-                    error={error}
-                />
+        <Modal visible={visible} onClose={onClose}>
+            <Textbox
+                placeholder='New Collection'
+                onKeyUp={(value: string, setValue: Function) => onCreateCollection(value, setValue)}
+                style={`margin-bottom: 7.5px;`}
+                error={error}
+            />
 
-                {
-                    collections.map(collection => (
-                        <CollectionRow key={collection.name} collection={collection}>
-                            <input 
-                                type="checkbox" 
-                                checked={isChecked(collection)} 
-                                onChange={() => handleChecked(collection)}
-                                className={css`margin-right:10px;`} />
-                        </CollectionRow>
-                    ))
+            {
+                collections.map(collection => (
+                    <CollectionRow key={collection.name} collection={collection}>
+                        <input
+                            type="checkbox"
+                            checked={isChecked(collection)}
+                            onChange={() => handleChecked(collection)}
+                            className={css`margin-right:10px;`} />
+                    </CollectionRow>
+                ))
+            }
+
+            {
+                collections.length <= 0 && (
+                    <p>No collections yet</p>
+                )
+            }
+
+            <Button style={`
+                width:100%; 
+                margin-top:5px;
+                margin-bottom:5px;
+                background-color: black;
+                color: white !important;
+                &:hover {
+                    background-color: hsl(14,80%,30%);
                 }
-
-                {
-                    collections.length <= 0 && (
-                        <p>No collections yet</p>
-                    )
-                }
-
-                <Button style={`
-                    width:100%; 
-                    margin-top:5px;
-                    margin-bottom:5px;
-                    background-color: black;
-                    color: white !important;
-                    &:hover {
-                        background-color: hsl(14,80%,30%);
-                    }
-                `} onClick={() => handlePersist()}>
-                    Add
-                </Button>
-                <Button style={`width:100%;`} onClick={() => onClose()}>
-                    Close
-                </Button>
-            </div>
-        </div>
+            `} onClick={() => handlePersist()}>
+                Add
+            </Button>
+            <Button style={`width:100%;`} onClick={() => onClose()}>
+                Close
+            </Button>
+        </Modal>
     )
 }

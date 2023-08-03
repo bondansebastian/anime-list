@@ -32,7 +32,7 @@ function AnimeDetail() {
             <Banner src={anime.bannerImage} alt={anime.title.userPreferred} />
             <Container>
                 <Row>
-                    <Column md={3} xl={2}>
+                    <Column md={3}>
                         <Cover style={`
                             ${mdMin} {
                                 box-shadow: 0 0 29px rgba(49,54,68,.25);
@@ -43,14 +43,14 @@ function AnimeDetail() {
                         <Button style={`
                             width: 100%;
                         `} onClick={() => setModalVisible(true)}>
-                            { collectionCounts <= 0 ? `Add to collection` : `Added to collection (${collectionCounts})` }
+                            <i className='fa-solid fa-folder-open' /> { collectionCounts <= 0 ? `Add to collection` : `Added to collection (${collectionCounts})` }
                         </Button>
                         <br /> <br />
                         <Meta data={[
                             { label: 'Genres', value: anime.genres },
                         ]} />
                     </Column>
-                    <Column md={9} xl={10}>
+                    <Column md={9}>
                         <h1 className={css`
                             font-size: 1.4rem;
                             font-weight: 400;
