@@ -26,5 +26,5 @@ test('renders without error', async () => {
       </AnimeProvider>
     </MockedProvider>
   );
-  expect(await screen.findByText("Test Collection")).toBeInTheDocument();
+  expect(await screen.findByText(collections[0].name)).toBeInTheDocument();
 });

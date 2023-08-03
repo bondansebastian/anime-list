@@ -27,9 +27,6 @@ export default function CollectionDetail() {
     const getCover = (anime: Media) => anime.coverImage.large;
     const getTitle = (anime: Media) => anime.title.english || anime.title.userPreferred;
 
-    // debug
-    console.log(name, collections);
-
     const handleEdit = (collection: Collection) => {
         setSelected(collection);
         setEditing(true);
