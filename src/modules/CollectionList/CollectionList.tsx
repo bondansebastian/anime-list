@@ -7,6 +7,8 @@ import CollectionRow from '../../components/CollectionRow';
 import FloatingNavLink from '../../components/FloatingNavLink';
 import Cover from '../../components/Cover';
 import Collection from '../../types/Collection';
+import PageTitle from '../../components/PageTitle';
+import { css } from '@emotion/css';
 
 export default function CollectionList()
 {
@@ -21,17 +23,22 @@ export default function CollectionList()
         <Container>
             <Row>
                 <Column>
-                    {
-                        collections.map(collection => (
-                            <CollectionRow key={collection.name} collection={collection}>
-                                <Cover src={getCover(collection)} style={`
-                                    flex: .1;
-                                    height: 75px;
-                                    margin-right: 10px;
-                                `} />
-                            </CollectionRow>
-                        ))
-                    }
+                    <PageTitle>Collections</PageTitle>
+                    <div className={css`
+                        position: relative;
+                    `}>
+                        {
+                            collections.map(collection => (
+                                <CollectionRow key={collection.name} collection={collection}>
+                                    <Cover src={getCover(collection)} style={`
+                                        flex: .75;
+                                        height: 75px;
+                                        margin-right: 10px;
+                                    `} />
+                                </CollectionRow>
+                            ))
+                        }
+                    </div>
                 </Column>
             </Row>
             <FloatingNavLink to='/'>

@@ -12,6 +12,7 @@ import PageQueryResult from '../../types/PageQueryResult';
 import GET_PAGE from '../../queries/GetPage';
 import AnimeContext from '../../contexts/AnimeContext';
 import FloatingNavLink from '../../components/FloatingNavLink';
+import PageTitle from '../../components/PageTitle';
 
 function AnimeList() {
     const { animes, setAnimes } = useContext(AnimeContext);
@@ -60,6 +61,7 @@ function AnimeList() {
 
     return (
         <Container ref={ref}>
+            <PageTitle>Animes</PageTitle>
             <Loading visible={loading} />
             {error && `Error! ${error.message}`}
             <Row>
