@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_PAGE } from '../../queries';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
@@ -11,6 +10,7 @@ import Loading from '../../components/Loading';
 import { AnimeContext } from '../../context';
 import PageInfo from '../../types/PageInfo';
 import PageQueryResult from '../../types/PageQueryResult';
+import GET_PAGE from '../../queries/GetPage';
 
 function AnimeList() {
     const { animes, setAnimes } = useContext(AnimeContext);

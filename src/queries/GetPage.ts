@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_PAGE = gql`
+const GET_PAGE = gql`
   query GetPage ($page: Int) {
     Page (page: $page, perPage: 10) {
         pageInfo {
@@ -31,3 +31,5 @@ export const GET_PAGE = gql`
     }
   }
 `;
+
+export default GET_PAGE;

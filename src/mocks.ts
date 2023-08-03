@@ -1,4 +1,4 @@
-import { GET_PAGE } from "./queries";
+import GET_PAGE from "./queries/GetPage";
 
 export const pageMock = [
     {
