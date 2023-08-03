@@ -116,7 +116,8 @@ export default function CollectionModal({
                             <input 
                                 type="checkbox" 
                                 checked={isChecked(collection)} 
-                                onChange={() => handleChecked(collection)} />
+                                onChange={() => handleChecked(collection)}
+                                className={css`margin-right:10px;`} />
                         </CollectionRow>
                     ))
                 }

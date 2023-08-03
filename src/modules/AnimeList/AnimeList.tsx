@@ -11,6 +11,7 @@ import PageInfo from '../../types/PageInfo';
 import PageQueryResult from '../../types/PageQueryResult';
 import GET_PAGE from '../../queries/GetPage';
 import AnimeContext from '../../contexts/AnimeContext';
+import FloatingNavLink from '../../components/FloatingNavLink';
 
 function AnimeList() {
     const { animes, setAnimes } = useContext(AnimeContext);
@@ -75,6 +76,9 @@ function AnimeList() {
                     ))
                 )}
             </Row>
+            <FloatingNavLink to='/collection-list'>
+                <i className="fa-solid fa-folder-open" /> Collections
+            </FloatingNavLink>
         </Container>
     );
 }

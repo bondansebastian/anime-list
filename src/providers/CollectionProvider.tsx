@@ -10,7 +10,7 @@ export default function CollectionProvider({ children }: any)
 
     const addCollection = (name: string, animes: Array<Media> = []) => {
         setCollections([
-            { name, animes, coverImage: animes[0]?.coverImage.large },
+            { name, animes },
             ...collections,
         ])
     }

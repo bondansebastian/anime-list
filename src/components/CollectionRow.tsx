@@ -14,11 +14,15 @@ export default function CollectionRow({
 }: CollectionRowType) {
     return (
         <div className={css`
+            border-radius: 4px;
+            border: 0.75px solid #DCDCDC;
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: space-between;
-            padding: 5px;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
         `}>
             {children}
             <div className={css`
