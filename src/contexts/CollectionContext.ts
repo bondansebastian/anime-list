@@ -9,6 +9,7 @@ type CollectionContextType = {
     removeCollection(name: string): void;
     validateCollection(name: string): boolean;
     addAnime(collection: Collection, anime: Media): void;
+    removeAnime(collection: Collection, anime: Media): void;
     hasAnime(collection: Collection, anime: Media): boolean;
 }
 

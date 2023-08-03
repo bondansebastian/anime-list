@@ -28,6 +28,13 @@ export default function CollectionProvider({ children }: any)
         addCollection(collection.name, [ ...collection.animes, anime ])
     }
 
+    const removeAnime = (collection: Collection, anime: Media) => {
+        let mutated = [ ...collections ];
+        const index = mutated.findIndex(item => item.name === collection.name);
+        mutated[index].animes = mutated[index].animes.filter(item => item.id !== anime.id);
+        setCollections(mutated);
+    }
+
     const hasAnime = (collection: Collection, anime: Media) => {
         return collection.animes.find(item => item.id === anime.id) !== undefined;
     }
@@ -56,6 +63,7 @@ export default function CollectionProvider({ children }: any)
             removeCollection,
             validateCollection,
             addAnime,
+            removeAnime,
             hasAnime,
         }}>
             {children}

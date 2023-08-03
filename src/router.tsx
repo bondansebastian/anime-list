@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AnimeDetail from "./modules/AnimeDetail/AnimeDetail";
 import AnimeList from "./modules/AnimeList/AnimeList";
 import CollectionList from "./modules/CollectionList/CollectionList";
+import CollectionDetail from "./modules/CollectionDetail/CollectionDetail";
 
 export default createBrowserRouter([
     {
@@ -15,5 +16,9 @@ export default createBrowserRouter([
     {
         path: "/collection-list",
         element: <CollectionList />,
+    },
+    {
+        path: "/collection-detail/:name",
+        element: <CollectionDetail />,
     },
 ]);

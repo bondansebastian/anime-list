@@ -8,13 +8,12 @@ import FloatingNavLink from '../../components/FloatingNavLink';
 import Cover from '../../components/Cover';
 import Collection from '../../types/Collection';
 import PageTitle from '../../components/PageTitle';
-import { css } from '@emotion/css';
 import PrimaryButton from '../../components/PrimaryButton';
-import { mdMin } from '../../breakpoints';
 import Modal from '../../components/Modal';
 import Textbox from '../../components/Textbox';
 import Button from '../../components/Button';
 import List from '../../components/List';
+import ListContainer from '../../components/ListContainer';
 
 export default function CollectionList() {
     const { collections, addCollection, validateCollection } = useContext(CollectionContext);
@@ -41,9 +40,7 @@ export default function CollectionList() {
             <Row>
                 <Column>
                     <PageTitle>Collections</PageTitle>
-                    <div className={css`
-                        position: relative;
-                    `}>
+                    <ListContainer>
                         <List>
                             <PrimaryButton onClick={() => setModalVisible(true)}>
                                 <i className="fa-solid fa-plus" /> Add Collection
@@ -65,7 +62,7 @@ export default function CollectionList() {
                                 )
                             }
                         </List>
-                    </div>
+                    </ListContainer>
                 </Column>
             </Row>
             <FloatingNavLink to='/'>

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import CollectionContext from '../contexts/CollectionContext';
 import DeleteButton from './DeleteButton';
 import ListItem from './ListItem';
+import ListItemAction from './ListItemAction';
 
 type CollectionRowType = {
     collection: Collection;
@@ -35,13 +36,9 @@ export default function CollectionRow({
                 </NavLink>
             </div>
 
-            <div className={css`
-                flex: 1;
-                text-align: right;
-                label: actions;
-            `}>
+            <ListItemAction style={{ flex: 1 }}>
                 <DeleteButton onClick={() => handleDelete(collection)} />
-            </div>
+            </ListItemAction>
         </ListItem>
     )
 }
