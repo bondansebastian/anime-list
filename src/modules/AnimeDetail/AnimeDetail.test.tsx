@@ -4,7 +4,7 @@ import AnimeDetail from './AnimeDetail';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import { pageMock } from '../../mocks';
-import AnimeProvider from '../../components/AnimeProvider';
+import AnimeProvider from '../../providers/AnimeProvider';
 import AnimeList from '../AnimeList/AnimeList';
 
 const router = createBrowserRouter([

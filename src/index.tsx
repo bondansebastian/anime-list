@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import router from './router';
-import AnimeProvider from './components/AnimeProvider';
+import AnimeProvider from './providers/AnimeProvider';
 
 const client = new ApolloClient({
   uri: 'https://graphql.anilist.co',

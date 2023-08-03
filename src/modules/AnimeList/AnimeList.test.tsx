@@ -4,7 +4,7 @@ import AnimeList from './AnimeList';
 import { BrowserRouter } from 'react-router-dom';
 import { MockedProvider } from "@apollo/client/testing";
 import { pageMock } from '../../mocks';
-import AnimeProvider from '../../components/AnimeProvider';
+import AnimeProvider from '../../providers/AnimeProvider';
 
 test('renders without error', async () => {
   render(
