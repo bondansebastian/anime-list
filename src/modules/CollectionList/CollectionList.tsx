@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
@@ -23,6 +23,7 @@ export default function CollectionList() {
     const { collections, addCollection, validateCollection, removeCollection } = useContext(CollectionContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [error, setError] = useState('');
+    const textboxRef = useRef<HTMLInputElement>();
 
     const getCover = (item: Collection) => {
         if (item.animes.length === 0) return `/collection-placeholder.png`;
@@ -44,6 +45,12 @@ export default function CollectionList() {
             removeCollection(collection.name);
         }
     }
+
+    useEffect(() => {
+        if (modalVisible) {
+            textboxRef.current?.focus();
+        }
+    }, [modalVisible])
 
     return (
         <Container>
@@ -96,6 +103,7 @@ export default function CollectionList() {
             <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
                 <h4>Add New Collection</h4>
                 <Textbox
+                    ref={textboxRef}
                     fullwidth={true}
                     placeholder="Type collection name here"
                     onKeyUp={handleAdd}
