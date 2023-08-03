@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AnimeDetail from './AnimeDetail';
-import { MemoryRouter, Route, Routes, createBrowserRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import { mediaMock } from '../../mocks';
 import AnimeProvider from '../../providers/AnimeProvider';
