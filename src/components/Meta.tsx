@@ -35,7 +35,7 @@ export default function Meta({ data, sm = 12, md = sm, lg = md, xl = lg }: MetaP
 
                         {
                             Array.isArray(item.value) && item.value.map(val => (
-                                <ItemValue>{val}</ItemValue>
+                                <ItemValue key={val}>{val}</ItemValue>
                             ))
                         }
 

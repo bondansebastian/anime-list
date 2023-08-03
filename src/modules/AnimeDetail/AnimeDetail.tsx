@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, Navigate, useParams } from 'react-router-dom';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
@@ -9,14 +9,14 @@ import { css } from '@emotion/css';
 import { mdMin } from '../../breakpoints';
 import Meta from '../../components/Meta';
 import AnimeContext from '../../contexts/AnimeContext';
+import Button from '../../components/Button';
+import CollectionModal from '../../components/CollectionModal';
 
 function AnimeDetail() {
     const { id } = useParams();
     const { getAnime } = useContext(AnimeContext);
+    const [ modalVisible, setModalVisible ] = useState(false);
     const anime = id === undefined ? undefined : getAnime(parseInt(id));
-
-    // debug
-    console.log(id);
 
     if (!anime) {
         return <Navigate to='/' replace={true} />
@@ -35,6 +35,12 @@ function AnimeDetail() {
                             }
                         `} src={anime.coverImage.large} alt={anime.title.userPreferred} />
                         <br />
+                        <Button style={`
+                            width: 100%;
+                        `} onClick={() => setModalVisible(true)}>
+                            Add to collection
+                        </Button>
+                        <br /> <br />
                         <Meta data={[
                             { label: 'Genres', value: anime.genres },
                         ]} />
@@ -57,6 +63,7 @@ function AnimeDetail() {
                     </Column>
                 </Row>
             </Container>
+            <CollectionModal anime={anime} visible={modalVisible} onClose={() => setModalVisible(false)} />
         </>
     );
 }

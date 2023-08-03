@@ -6,11 +6,12 @@ import CollectionContext from '../contexts/CollectionContext';
 export default function CollectionProvider({ children }: any)
 {
     const [collections, setCollections] = useState<Collection[]>([]);
+    const [firstLoad, setFirstLoad] = useState(true);
 
-    const addCollection = (name: string, animes: Array<Media>) => {
+    const addCollection = (name: string, animes: Array<Media> = []) => {
         setCollections([
+            { name, animes, coverImage: animes[0]?.coverImage.large },
             ...collections,
-            { name, animes, coverImage: animes[0]?.coverImage.large }
         ])
     }
 
@@ -27,27 +28,35 @@ export default function CollectionProvider({ children }: any)
         addCollection(collection.name, [ ...collection.animes, anime ])
     }
 
+    const hasAnime = (collection: Collection, anime: Media) => {
+        return collection.animes.find(item => item.id === anime.id) !== undefined;
+    }
+
     const storageKey = 'collection';
 
     // Load collections from local storage
     useEffect(() => {
         const serialized = localStorage.getItem(storageKey);
         if (serialized !== null) setCollections(JSON.parse(serialized));
+        setFirstLoad(false);
     }, [])
 
     // Update local storage collections
     useEffect(() => {
+        if (firstLoad) return;
         const serialized = JSON.stringify(collections);
         localStorage.setItem(storageKey, serialized);
-    }, [collections])
+    }, [collections, firstLoad])
 
     return (
         <CollectionContext.Provider value={{ 
             collections,
+            setCollections,
             addCollection,
             removeCollection,
             validateCollection,
-            addAnime
+            addAnime,
+            hasAnime,
         }}>
             {children}
         </CollectionContext.Provider>
