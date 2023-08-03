@@ -5,16 +5,20 @@ import Button from './Button';
 import Collection from '../types/Collection';
 import CollectionContext from '../contexts/CollectionContext';
 
+type OnCloseHandler = {
+    (name?: string): void;
+}
+
 type EditCollectionModalProps = {
     collection: Collection|undefined;
     visible?: boolean;
-    onClose?: Function;
+    onClose?: OnCloseHandler;
 }
 
 export default function EditCollectionModal({
     collection,
     visible = false,
-    onClose = () => { },
+    onClose = (name) => { },
 }: EditCollectionModalProps) {
     const { editCollection, validateCollection } = useContext(CollectionContext);
     const textboxRef = useRef<HTMLInputElement>();
@@ -29,7 +33,7 @@ export default function EditCollectionModal({
         if (validateCollection(name)) {
             editCollection(collection.name, name);
             setValue('');
-            onClose();
+            onClose(name);
         } else {
             setError('Collection already exists');
         }
@@ -53,7 +57,7 @@ export default function EditCollectionModal({
                 error={error}
                 style={`margin-bottom: 10px;`}
             />
-            <Button fullwidth={true} onClick={() => onClose()}>
+            <Button fullwidth={true} onClick={() => onClose(collection?.name)}>
                 Close
             </Button>
         </Modal>

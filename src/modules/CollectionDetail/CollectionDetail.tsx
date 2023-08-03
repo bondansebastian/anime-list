@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Container from '../../components/Container';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
@@ -8,23 +8,41 @@ import List from '../../components/List';
 import ListItem from '../../components/ListItem';
 import Cover from '../../components/Cover';
 import Media from '../../types/Media';
-import { NavLink, Navigate, useParams } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate, useParams } from 'react-router-dom';
 import ListItemAction from '../../components/ListItemAction';
 import DeleteButton from '../../components/DeleteButton';
 import CollectionContext from '../../contexts/CollectionContext';
+import EditButton from '../../components/EditButton';
+import Collection from '../../types/Collection';
+import EditCollectionModal from '../../components/EditCollectionModal';
 
 export default function CollectionDetail() {
-    const { name } = useParams();
+    let { name } = useParams();
+    const navigate = useNavigate();
     const { collections, removeAnime } = useContext(CollectionContext);
+    const [editing, setEditing] = useState(false);
+    const [selected, setSelected] = useState<Collection|undefined>(undefined);
     const collection = collections.find(item => item.name === name);
     const animes = collection?.animes || [];
     const getCover = (anime: Media) => anime.coverImage.large;
     const getTitle = (anime: Media) => anime.title.english || anime.title.userPreferred;
 
+    const handleEdit = (collection: Collection) => {
+        setSelected(collection);
+        setEditing(true);
+    }
+
     const handleDelete = (anime: Media) => {
         if (collection === undefined) return;
         if (window.confirm(`Remove ${getTitle(anime)} from ${collection.name}?`)) {
             removeAnime(collection, anime);
+        }
+    }
+
+    const handleClose = (updated?: string) => {
+        setEditing(false);
+        if (updated !== undefined && updated !== name) {
+            navigate(`/collection-detail/${updated}`, { replace: true });
         }
     }
 
@@ -36,7 +54,12 @@ export default function CollectionDetail() {
         <Container>
             <Row>
                 <Column>
-                    <PageTitle>{collection.name}</PageTitle>
+                    <PageTitle>
+                        {collection.name}
+                    </PageTitle>
+                    <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+                        <EditButton label='Edit Collection' onClick={() => handleEdit(collection)} />
+                    </div>
                     <ListContainer>
                         <List>
                             {
@@ -67,6 +90,11 @@ export default function CollectionDetail() {
                     </ListContainer>
                 </Column>
             </Row>
+            <EditCollectionModal 
+                visible={editing} 
+                collection={selected} 
+                onClose={handleClose} 
+            />
         </Container>
     )
 }
