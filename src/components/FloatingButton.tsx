@@ -1,33 +1,33 @@
 import { css } from '@emotion/css';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
-type FloatingNavLinkProps = {
+type FloatingButtonProps = {
     children?: any;
-    to: string;
     style?: string;
+    onClick?: Function;
 }
 
-export default function FloatingNavLink({ children, to, style }: FloatingNavLinkProps)
+export default function FloatingButton({ children, style, onClick = () => {} }: FloatingButtonProps)
 {
     return (
-        <NavLink to={to} className={css`
+        <button className={css`
             background-color: black;
             border-radius: 4px;
+            border: 1px solid black;
+            bottom: 15px;
             color: white !important;
             cursor: pointer;
             display: inline-block;
             padding: 5px 10px;
-            transition: all .2s ease;
             position: fixed;
             right: 15px;
-            bottom: 15px;
+            transition: all .2s ease;
             ${style}
             &:hover {
                 background-color: hsl(14,80%,30%);
             }
-        `}>
+        `} onClick={(e) => onClick(e)}>
             {children}
-        </NavLink>
+        </button>
     )
 }

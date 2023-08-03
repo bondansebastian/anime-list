@@ -21,6 +21,7 @@ export default function Modal({
             top: 0;
             width: 100%;
             overflow: hidden;
+            z-index: 4;
             label: modal-container;
         `} >
             <div className={css`
