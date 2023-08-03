@@ -4,6 +4,7 @@ import Collection from '../types/Collection';
 import { NavLink } from 'react-router-dom';
 import CollectionContext from '../contexts/CollectionContext';
 import DeleteButton from './DeleteButton';
+import ListItem from './ListItem';
 
 type CollectionRowType = {
     collection: Collection;
@@ -23,17 +24,7 @@ export default function CollectionRow({
     }
 
     return (
-        <div className={css`
-            align-items: center;
-            border-radius: 4px;
-            border: 0.75px solid #DCDCDC;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding: 10px 15px;
-        `}>
+        <ListItem>
             {children}
 
             <div className={css`
@@ -51,7 +42,6 @@ export default function CollectionRow({
             `}>
                 <DeleteButton onClick={() => handleDelete(collection)} />
             </div>
-
-        </div>
+        </ListItem>
     )
 }

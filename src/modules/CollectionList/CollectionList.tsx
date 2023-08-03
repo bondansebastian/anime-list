@@ -14,6 +14,7 @@ import { mdMin } from '../../breakpoints';
 import Modal from '../../components/Modal';
 import Textbox from '../../components/Textbox';
 import Button from '../../components/Button';
+import List from '../../components/List';
 
 export default function CollectionList() {
     const { collections, addCollection, validateCollection } = useContext(CollectionContext);
@@ -43,16 +44,7 @@ export default function CollectionList() {
                     <div className={css`
                         position: relative;
                     `}>
-                        <div className={css`
-                            display: inline-block;
-                            position: relative;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            width: 100%;
-                            ${mdMin} {
-                                width: 400px;
-                            }
-                        `}>
+                        <List>
                             <PrimaryButton onClick={() => setModalVisible(true)}>
                                 <i className="fa-solid fa-plus" /> Add Collection
                             </PrimaryButton>
@@ -67,13 +59,12 @@ export default function CollectionList() {
                                     </CollectionRow>
                                 ))
                             }
-                        </div>
-
-                        {
-                            collections.length <= 0 && (
-                                <p>No collections yet</p>
-                            )
-                        }
+                            {
+                                collections.length <= 0 && (
+                                    <p>No collections yet</p>
+                                )
+                            }
+                        </List>
                     </div>
                 </Column>
             </Row>
