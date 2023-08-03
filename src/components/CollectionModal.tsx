@@ -101,7 +101,7 @@ export default function CollectionModal({
                 Add
             </PrimaryButton>
 
-            <Button style={`width:100%;`} onClick={() => onClose()}>
+            <Button fullwidth={true} onClick={() => onClose()}>
                 Close
             </Button>
 

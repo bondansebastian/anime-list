@@ -1,11 +1,15 @@
 import { css } from '@emotion/css';
 import React, { useState } from 'react';
 
+type KeyUpHandler = {
+    (value: string, setValue: Function): void;
+}
+
 type TextboxProps = {
     fullwidth?: boolean;
     error?: string;
     placeholder?: string;
-    onKeyUp?: Function|null;
+    onKeyUp?: KeyUpHandler|null;
     style?: string;
 }
 
@@ -14,11 +18,11 @@ export default function Textbox({
     error, 
     placeholder, 
     onKeyUp = null, 
-    style }: TextboxProps
-) {
-    const [ value, setValue ] = useState<string|undefined>(undefined);
+    style 
+}: TextboxProps) {
+    const [ value, setValue ] = useState<string>('');
 
-    const handleKeyUp = (event: any) => {
+    const handleKeyUp = (event: React.KeyboardEvent) => {
         if (event.key !== 'Enter' || onKeyUp === null) return;
         onKeyUp(value, setValue);
     }
@@ -35,12 +39,19 @@ export default function Textbox({
                 value={value} 
                 onChange={e => setValue(e.target.value.replace(/[^\w\s]/gi, ''))} 
                 className={css`
-                    border-radius: 4px;
                     width: calc(100% - 9px);
                     padding: 4px;
-                    transition: all .2s ease;
-                    border-color: ${error ? 'red' : 'default'};
-                    border-width: 0.5px;
+                    transition: border-color .2s ease;
+                    border-color: ${error ? 'red' : 'gray'};
+                    border-top: none !important;
+                    border-left: none !important;
+                    border-right: none !important;
+                    border-bottom: .5px solid gray;
+                    &:focus,
+                    &:focus-visible {
+                        border-bottom: 2px solid #80bdff;
+                        outline: none;
+                    }
                 `} 
                 onKeyUp={handleKeyUp}
                 placeholder={placeholder}

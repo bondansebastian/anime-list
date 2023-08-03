@@ -31,12 +31,8 @@ export default function CollectionRow({
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: space-between;
-            left: 50%;
             margin-bottom: 10px;
-            max-width: 400px;
             padding: 10px 15px;
-            position: relative;
-            transform: translateX(-50%);
         `}>
             {children}
 
