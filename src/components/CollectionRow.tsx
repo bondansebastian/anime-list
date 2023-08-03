@@ -1,6 +1,7 @@
 import { css } from '@emotion/css';
 import React from 'react';
 import Collection from '../types/Collection';
+import { NavLink } from 'react-router-dom';
 
 type CollectionRowType = {
     collection: Collection;
@@ -20,8 +21,12 @@ export default function CollectionRow({
             padding: 5px;
         `}>
             {children}
-            <div>
-                {collection.name}
+            <div className={css`
+                flex: 2;
+            `}>
+                <NavLink to={`/collection-detail/${collection.name}`}>
+                    {collection.name}
+                </NavLink>
             </div>
         </div>
     )

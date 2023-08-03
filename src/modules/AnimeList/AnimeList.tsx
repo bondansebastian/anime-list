@@ -65,14 +65,7 @@ function AnimeList() {
                 {animes.length > 0 && (
                     animes.map(anime => (
                         <Column key={anime.id} md={3} lg={12 / 5}>
-                            <NavLink className={css`
-                                color: rgb(92, 114, 138);
-                                text-decoration: none;
-                                transition: color .2s ease;
-                                &:hover {
-                                    color: hsl(14,80%,30%);
-                                }
-                            `} to={`anime-detail/${anime.id}`}>
+                            <NavLink to={`anime-detail/${anime.id}`}>
                                 <Cover src={anime.coverImage.large} alt={anime.title.english} />
                                 <div className={css`
                                     font-weight: 600;
