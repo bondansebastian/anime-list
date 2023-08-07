@@ -6,7 +6,6 @@ import Column from '../../components/Column';
 import Cover from '../../components/Cover';
 import { NavLink } from 'react-router-dom';
 import Loading from '../../components/Loading';
-import PageInfo from '../../types/PageInfo';
 import PageQueryResult from '../../types/PageQueryResult';
 import GET_PAGE from '../../queries/GetPage';
 import AnimeContext from '../../contexts/AnimeContext';
@@ -19,17 +18,12 @@ import BulkCollectionModal from '../../components/BulkCollectionModal';
 import Success from '../../components/Success';
 
 function AnimeList() {
-    const { animes, setAnimes } = useContext(AnimeContext);
+    const { animes, setAnimes, pageInfo, setPageInfo } = useContext(AnimeContext);
     const [selecteds, setSelecteds] = useState<number[]>([]);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(pageInfo.currentPage > 0 ? pageInfo.currentPage : 1);
     const [firstLoad, setFirstLoad] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
     const [successVisible, setSuccessVisible] = useState(false);
-    const [pageInfo, setPageInfo] = useState<PageInfo>({
-        perPage: 10,
-        currentPage: page,
-        hasNextPage: true,
-    });
     const { loading, error, data }: PageQueryResult = useQuery(GET_PAGE, {
         variables: {
             page: page,
@@ -52,27 +46,32 @@ function AnimeList() {
                 setPage(page + 1);
             }
         }
-        if (firstLoad
-            && page === 1
-            && ref.current !== undefined
-            && isVisible(ref.current)
-            && !loading) {
-            setPage(page + 1);
-            setFirstLoad(false);
-        }
+
+        // Paginate immediately if bottom is visible
+        setTimeout(() => {
+            if (firstLoad
+                && page === 1
+                && ref.current !== undefined
+                && isVisible(ref.current)
+                && !loading) {
+                setPage(page + 1);
+                setFirstLoad(false);
+            }
+        }, 250)
+
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [pageInfo, loading, page])
+    }, [pageInfo, loading, page, firstLoad])
 
     useEffect(() => {
-        if (data) {
+        if (data && data.Page.pageInfo.currentPage > pageInfo.currentPage) {
             setAnimes([
                 ...animes,
                 ...data.Page.media,
             ]);
             setPageInfo(data.Page.pageInfo);
         }
-    }, [data])
+    }, [animes, data, pageInfo, setPageInfo, setAnimes])
 
     return (
         <Container ref={ref}>
