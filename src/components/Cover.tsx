@@ -1,15 +1,27 @@
 import { css } from '@emotion/css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type CoverProps = {
     src?: string|undefined;
+    deferredSrc?: string|undefined;
     alt?: string|undefined;
     style?: string;
     imageStyle?: string;
 }
 
-export default function Cover({ src, alt, style, imageStyle }: CoverProps)
+export default function Cover({ src, deferredSrc = undefined, alt, style, imageStyle }: CoverProps)
 {
+    const [ deferredReady, setDeferredReady ] = useState(false);
+
+    useEffect(() => {
+        if (deferredReady || deferredSrc === undefined) return;
+        const img = new Image();
+        img.onload = () => {
+            setDeferredReady(true);
+        };
+        img.src = deferredSrc;
+    }, [deferredReady, deferredSrc])
+        
     if (src === undefined) src = '/collection-placeholder.png';
     return (
         <div className={css`
@@ -36,7 +48,7 @@ export default function Cover({ src, alt, style, imageStyle }: CoverProps)
                 width: 100%;
                 ${imageStyle}
                 label: cover-img;
-            `} src={src} alt={alt} />
+            `} src={deferredReady ? deferredSrc : src} alt={alt} />
         </div>
     )
 }

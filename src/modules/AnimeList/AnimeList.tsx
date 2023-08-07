@@ -150,7 +150,8 @@ function Anime({
             `} onClick={(e) => onChecked(e)} />
             <NavLink to={`anime-detail/${anime.id}`}>
                 <Cover 
-                    src={anime.coverImage.large} 
+                    src={anime.coverImage.medium} 
+                    deferredSrc={anime.coverImage.large} 
                     alt={anime.title.english}
                     imageStyle={checked ? `
                         width: 90%;
